@@ -1,0 +1,5 @@
+bitcoin,10,850
+peercoin,4,420
+ripple,16,1790
+litecoin,7,740
+dogecoin,9,810

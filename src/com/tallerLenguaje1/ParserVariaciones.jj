@@ -1,0 +1,52 @@
+options {
+    STATIC = false;
+}
+
+PARSER_BEGIN(ParserVariaciones)
+package com.tallerLenguaje1;
+import java.io.*;
+
+
+public class ParserVariaciones {
+
+	public static void main(String[] args) throws IOException {
+
+		String LineaEntera = " ";
+
+		FileReader f = new FileReader("Variaciones.txt");
+ 		BufferedReader bf = new BufferedReader(f);
+	    String Linea = bf.readLine();
+
+	     	while(Linea != null) {
+
+	           LineaEntera += Linea;
+	           Linea = bf.readLine();
+
+	        }
+
+	 	 f.close();
+
+			try{
+
+				new ParserVariaciones(new java.io.StringReader(LineaEntera)).S();
+				System.out.println("La sintaxis es CORRECTA");
+
+			}catch(Throwable e){
+				System.out.println("Hay un ERROR en la sintaxis: "+ e.getMessage());
+			}
+
+
+	}
+}
+
+PARSER_END(ParserVariaciones)
+
+SKIP: { " " | "\t" | "\n" | "\r" }
+TOKEN: {
+    <DIA: "Dia"(["0"-"9"])+>
+    | <NUMERO: (["0"-"9"])+>
+}
+
+void S():	{} { type() (S())* <EOF> }
+void type():	{} {<DIA>","<NUMERO>","<NUMERO>}
+

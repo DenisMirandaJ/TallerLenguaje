@@ -1,0 +1,52 @@
+options {
+    STATIC = false;
+}
+
+PARSER_BEGIN(ParserConversiones)
+package com.tallerLenguaje1;
+import java.io.*;
+
+
+public class ParserConversiones {
+
+	public static void main(String[] args) throws IOException {
+
+		String LineaEntera = " ";
+
+		FileReader f = new FileReader("Conversiones.txt");
+ 		BufferedReader bf = new BufferedReader(f);
+	    String Linea = bf.readLine();
+	
+	     	while(Linea != null) {
+	
+	           LineaEntera += Linea;
+	           Linea = bf.readLine();
+	
+	        }
+	 	
+	 	 f.close();
+		
+			try{
+			 
+				new ParserConversiones(new java.io.StringReader(LineaEntera)).S();
+				System.out.println("La sintaxis es CORRECTA");
+		
+			}catch(Throwable e){
+				System.out.println("Hay un ERROR en la sintaxis: "+ e.getMessage());
+			}
+
+		
+	}
+}
+
+PARSER_END(ParserConversiones)
+
+SKIP: { " " | "\t" | "\n" | "\r" }
+TOKEN: {
+    <MONEDA: ("bitcoin" | "peercoin" | "ripple" | "litecoin" | "dogecoin")>
+    | <NUMERO: (["0"-"9"])+>
+}
+
+void S():	{} { type() (S())* <EOF> }
+void type():	{} {<MONEDA>","<NUMERO>","<NUMERO>}
+

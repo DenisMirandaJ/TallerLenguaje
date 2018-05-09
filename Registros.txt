@@ -1,0 +1,9 @@
+alt[bitcoin][20][Dia5]
+(dolar)(500)(Dia3)
+alt{litecoin}{40}{Dia2}
+(pesos)(45000)(Dia3)
+alt{ripple}{40}{Dia4}
+alt{litecoin}{40}{Dia7}
+alt[peercoin][20][Dia1]
+(pesos)(45000)(Dia2)
+alt{litecoin}{30}{Dia2}

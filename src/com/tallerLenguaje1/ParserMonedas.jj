@@ -1,0 +1,51 @@
+PARSER_BEGIN(ParserMonedas)
+package com.tallerLenguaje1;
+import java.io.*;
+
+
+public class ParserMonedas {
+
+	public static void main(String[] args) throws IOException {
+
+		String LineaEntera = " ";
+
+		FileReader f = new FileReader("Registros.txt");
+ 		BufferedReader bf = new BufferedReader(f);
+	    String Linea = bf.readLine();
+	
+	     	while(Linea != null) {
+	
+	           LineaEntera += Linea;
+	           Linea = bf.readLine();
+	
+	        }
+	 	
+	 	 f.close();
+		
+			try{
+			 
+				new ParserMonedas(new java.io.StringReader(LineaEntera)).S();
+				System.out.println("La sintaxis es CORRECTA");
+		
+			}catch(Throwable e){
+				System.out.println("Hay un ERROR en la sintaxis: "+ e.getMessage());
+			}
+
+		
+	}
+}
+
+PARSER_END(ParserMonedas)
+
+SKIP: { " " | "\t" | "\n" | "\r" }
+TOKEN: {
+  <MONEDA: ("alt"("["|"{") ("bitcoin"|"litecoin"|"ripple"|"peercoin"|"dogecoin") ("]"|"}")) | ("("("dolar"|"pesos")")")>
+| <VALOR: ("("|"{"|"[") (["0"-"9"])+ (")"|"}"|"]")>
+| <DIA:  ("("|"{"|"[") ("Dia"(["0"-"9"])+ (")"|"}"|"]"))>
+
+}
+
+void S():	{} { type() (S())* <EOF> }
+void type():	{} {<MONEDA><VALOR><DIA>}
+
+
